@@ -4,9 +4,18 @@ from __future__ import annotations
 
 import os
 import sqlite3
+import sys
 import tempfile
 from datetime import date, timedelta
 from pathlib import Path
+
+
+# Streamlit Community Cloud may execute this file with ``src`` as the script
+# directory rather than the repository root as the import base. Add the
+# project root dynamically so both Cloud and local launches resolve ``src``.
+project_root = Path(__file__).resolve().parents[1]
+if str(project_root) not in sys.path:
+    sys.path.insert(0, str(project_root))
 
 
 # Never point the public demo at the developer's local data directory.
