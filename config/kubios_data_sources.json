@@ -1,0 +1,20 @@
+{
+  "config_version": "1.0.0",
+  "source_priority": [
+    {"source_type": "csv", "priority": 1, "requires_review": false, "reliability": "preferred"},
+    {"source_type": "reviewed_screenshot_ocr", "priority": 2, "requires_review": true, "reliability": "reviewed"},
+    {"source_type": "manual", "priority": 3, "requires_review": true, "reliability": "user_entered"}
+  ],
+  "primary_selection": {
+    "require_reviewed": true,
+    "prefer_user_selected": true,
+    "then_source_priority": true,
+    "then_latest_measurement_time": true,
+    "never_silently_delete_raw": true
+  },
+  "measurement_group": {
+    "maximum_time_window_minutes": 15,
+    "require_same_date": true,
+    "require_user_confirmation": true
+  }
+}

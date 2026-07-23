@@ -1,0 +1,9 @@
+{
+  "template_id": "readiness_summary",
+  "date": "2026-01-02",
+  "readiness": 82,
+  "rmssd": 54.5,
+  "mean_hr": 58,
+  "pns_index": 1.4,
+  "sns_index": -0.8
+}

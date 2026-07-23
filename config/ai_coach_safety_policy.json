@@ -1,0 +1,54 @@
+{
+  "safety_policy_version": "1.0.0",
+  "fallback_reason_codes": [
+    "provider_unavailable",
+    "output_invalid",
+    "safety_blocked",
+    "audit_unavailable",
+    "approval_expired"
+  ],
+  "urgent_terms": [
+    "胸痛",
+    "呼吸困难",
+    "昏厥",
+    "意识不清",
+    "严重出血",
+    "chest pain",
+    "difficulty breathing",
+    "fainted",
+    "unconscious",
+    "severe bleeding"
+  ],
+  "escalation_terms": [
+    "立即联系当地急救",
+    "立即寻求当地急救",
+    "seek immediate local emergency help",
+    "contact local emergency services immediately"
+  ],
+  "prohibited_medical_phrases": [
+    "你患有",
+    "诊断为",
+    "确定是疾病",
+    "you have a disease",
+    "you are diagnosed",
+    "this confirms a disease"
+  ],
+  "prohibited_medication_phrases": [
+    "开始服用",
+    "停止服药",
+    "增加剂量",
+    "减少剂量",
+    "start taking medication",
+    "stop taking medication",
+    "increase the dose",
+    "decrease the dose"
+  ],
+  "strong_recommendation_phrases": [
+    "必须高强度训练",
+    "无需休息",
+    "可以忽略疼痛",
+    "must train hard",
+    "do not need rest",
+    "ignore the pain"
+  ]
+}

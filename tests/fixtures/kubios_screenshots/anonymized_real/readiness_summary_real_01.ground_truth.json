@@ -1,0 +1,9 @@
+{
+  "template_id": "readiness_summary",
+  "readiness": 54,
+  "mean_hr": 62,
+  "rmssd": 26.0,
+  "pns_index": -0.17,
+  "sns_index": 0.51,
+  "physiological_age": 41
+}

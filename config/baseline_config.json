@@ -1,0 +1,110 @@
+{
+  "default_window_days": 28,
+  "minimum_valid_days": 7,
+  "outlier_method": "median_mad",
+  "robust_z_thresholds": {
+    "below": -1.0,
+    "above": 1.0,
+    "outlier": 3.5
+  },
+  "metrics": [
+    {
+      "name": "nightly_hrv_rmssd",
+      "source_column": "nightly_hrv_rmssd",
+      "unit": "ms",
+      "direction": "higher_is_better"
+    },
+    {
+      "name": "nightly_resting_hr",
+      "source_column": "nightly_resting_hr",
+      "unit": "bpm",
+      "direction": "lower_is_better"
+    },
+    {
+      "name": "respiration_rate",
+      "source_column": "respiration_rate",
+      "unit": "breaths_per_minute",
+      "direction": "lower_is_better"
+    },
+    {
+      "name": "morning_rmssd",
+      "source_column": "morning_rmssd",
+      "unit": "ms",
+      "direction": "higher_is_better"
+    },
+    {
+      "name": "morning_mean_hr",
+      "source_column": "morning_mean_hr",
+      "unit": "bpm",
+      "direction": "lower_is_better"
+    },
+    {
+      "name": "kubios_readiness",
+      "source_column": "kubios_readiness",
+      "unit": "score",
+      "direction": "higher_is_better"
+    },
+    {
+      "name": "sleep_duration",
+      "source_column": "sleep_duration",
+      "unit": "hours",
+      "direction": "higher_is_better",
+      "duration_unit": "hours"
+    },
+    {
+      "name": "sleep_score",
+      "source_column": "sleep_score",
+      "unit": "score",
+      "direction": "higher_is_better"
+    },
+    {
+      "name": "active_calories",
+      "source_column": "active_calories",
+      "unit": "kcal",
+      "direction": "higher_is_load"
+    },
+    {
+      "name": "training_duration",
+      "source_column": "training_duration",
+      "unit": "minutes",
+      "direction": "higher_is_load",
+      "duration_unit": "minutes"
+    },
+    {
+      "name": "training_calories",
+      "source_column": "training_calories",
+      "unit": "kcal",
+      "direction": "higher_is_load"
+    },
+    {
+      "name": "steps",
+      "source_column": "steps",
+      "unit": "steps",
+      "direction": "higher_is_load"
+    },
+    {
+      "name": "kubios_rmssd_ms", "source_table": "kubios_hrv_normalized", "source_column": "rmssd_ms", "unit": "ms", "direction": "higher_is_better"
+    },
+    {
+      "name": "kubios_mean_hr_bpm", "source_table": "kubios_hrv_normalized", "source_column": "mean_hr_bpm", "unit": "bpm", "direction": "lower_is_better"
+    },
+    {
+      "name": "kubios_readiness_percent", "source_table": "kubios_hrv_normalized", "source_column": "readiness_percent", "unit": "%", "direction": "higher_is_better"
+    },
+    {
+      "name": "kubios_pns_index", "source_table": "kubios_hrv_normalized", "source_column": "pns_index", "unit": "index", "direction": "trend_only", "allow_negative": true
+    },
+    {
+      "name": "kubios_sns_index", "source_table": "kubios_hrv_normalized", "source_column": "sns_index", "unit": "index", "direction": "trend_only", "allow_negative": true
+    },
+    {
+      "name": "kubios_sdnn_ms", "source_table": "kubios_hrv_normalized", "source_column": "sdnn_ms", "unit": "ms", "direction": "trend_only"
+    },
+    {
+      "name": "kubios_respiratory_rate_bpm", "source_table": "kubios_hrv_normalized", "source_column": "respiratory_rate_bpm", "unit": "breaths_per_minute", "direction": "trend_only"
+    },
+    {
+      "name": "kubios_stress_index", "source_table": "kubios_hrv_normalized", "source_column": "stress_index", "unit": "index", "direction": "trend_only"
+    }
+  ]
+}

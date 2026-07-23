@@ -1,0 +1,10 @@
+{
+  "protocol_version": "1.0.0",
+  "protocol_start_date": "2026-07-12",
+  "target_unique_days": 14,
+  "maximum_generation_delay_days": 1,
+  "require_schema_pass_rate": 1.0,
+  "require_deterministic_match_rate": 1.0,
+  "require_no_cloud_marker_rate": 1.0,
+  "require_safety_notice_rate": 1.0
+}

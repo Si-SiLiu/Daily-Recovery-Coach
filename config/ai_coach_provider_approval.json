@@ -1,0 +1,21 @@
+{
+  "approval_record_version": "1.0.0",
+  "status": "blocked",
+  "implementation_authorization": false,
+  "provider_id": null,
+  "model_snapshot": null,
+  "endpoint": null,
+  "processing_region": null,
+  "region_supported": false,
+  "zdr_verified": false,
+  "no_training_verified": false,
+  "human_review_disabled": false,
+  "subprocessors_accepted": false,
+  "retention_terms_accepted": false,
+  "product_owner_approval": "pending",
+  "chief_architect_review": "pending",
+  "evidence_effective_at": null,
+  "evidence_expires_at": null,
+  "configuration_fingerprint": null,
+  "blocked_reason": "provider_not_eligible"
+}

@@ -1,0 +1,16 @@
+{
+  "evaluation_version": "1.1.0",
+  "evaluated_at": "2026-07-15",
+  "dataset": "anonymized_real",
+  "sample_count": 2,
+  "template_detection_accuracy": 100.0,
+  "required_field_exact_match_rate": 0.0,
+  "numeric_field_accuracy": 100.0,
+  "evaluated_numeric_field_count": 17,
+  "evaluated_status_field_count": 2,
+  "manual_correction_rate_for_visible_fields": 0.0,
+  "total_failure_rate": 0.0,
+  "verified_on_real_screenshots": true,
+  "import_ready_without_manual_completion": false,
+  "limitation": "Samples are cropped complementary sections; date is incomplete or absent, so mandatory import fields still require manual completion."
+}

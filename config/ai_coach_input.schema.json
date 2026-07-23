@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "daily-recovery-coach/ai-coach-input/1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["analysis_date", "recovery", "confidence", "daily_metrics", "baseline_context", "presentation", "contract_versions"],
+  "properties": {
+    "analysis_date": {"type": "string", "format": "date"},
+    "recovery": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["score", "recommendation", "score_version", "factors"],
+      "properties": {
+        "score": {"type": "integer", "minimum": 0, "maximum": 100},
+        "recommendation": {"type": "string", "minLength": 1, "maxLength": 500},
+        "score_version": {"type": "string", "minLength": 1, "maxLength": 32},
+        "factors": {
+          "type": "array",
+          "maxItems": 12,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["metric_name", "direction", "status", "deviation_band"],
+            "properties": {
+              "metric_name": {"type": "string", "enum": ["sleep", "hrv", "resting_hr", "respiration", "training", "activity", "readiness"]},
+              "direction": {"type": "string", "enum": ["supportive", "pressure", "neutral", "missing"]},
+              "status": {"type": "string", "enum": ["above", "within", "below", "insufficient", "missing"]},
+              "deviation_band": {"type": "string", "enum": ["strong", "moderate", "small", "within", "unknown"]}
+            }
+          }
+        }
+      }
+    },
+    "confidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["score", "level", "confidence_version", "available_groups", "missing_groups"],
+      "properties": {
+        "score": {"type": "integer", "minimum": 0, "maximum": 100},
+        "level": {"type": "string", "enum": ["high", "medium", "low", "very_low"]},
+        "confidence_version": {"type": "string", "minLength": 1, "maxLength": 32},
+        "available_groups": {"type": "array", "maxItems": 12, "items": {"type": "string", "maxLength": 64}},
+        "missing_groups": {"type": "array", "maxItems": 12, "items": {"type": "string", "maxLength": 64}}
+      }
+    },
+    "daily_metrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sleep_duration_band": {"type": "string", "enum": ["very_low", "low", "typical", "high", "unknown"]},
+        "sleep_score_band": {"type": "string", "enum": ["low", "typical", "high", "unknown"]},
+        "hrv_band": {"type": "string", "enum": ["low", "typical", "high", "unknown"]},
+        "resting_hr_band": {"type": "string", "enum": ["low", "typical", "high", "unknown"]},
+        "respiration_band": {"type": "string", "enum": ["low", "typical", "high", "unknown"]},
+        "training_duration_band": {"type": "string", "enum": ["none", "light", "moderate", "high", "unknown"]},
+        "training_count_band": {"type": "string", "enum": ["none", "single", "multiple", "unknown"]},
+        "activity_band": {"type": "string", "enum": ["low", "typical", "high", "unknown"]},
+        "readiness_label": {"type": "string", "maxLength": 64}
+      }
+    },
+    "baseline_context": {
+      "type": "array",
+      "maxItems": 12,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["metric_name", "comparison_status", "maturity_band", "deviation_band"],
+        "properties": {
+          "metric_name": {"type": "string", "maxLength": 64},
+          "comparison_status": {"type": "string", "enum": ["above", "within", "below", "insufficient"]},
+          "maturity_band": {"type": "string", "enum": ["immature", "developing", "mature"]},
+          "deviation_band": {"type": "string", "enum": ["strong", "moderate", "small", "within", "unknown"]}
+        }
+      }
+    },
+    "user_question": {"type": "string", "minLength": 1, "maxLength": 1000},
+    "presentation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["locale", "unit_system"],
+      "properties": {
+        "locale": {"type": "string", "enum": ["zh-CN", "en-US"]},
+        "unit_system": {"type": "string", "enum": ["metric", "imperial"]}
+      }
+    },
+    "contract_versions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["prompt_version", "output_schema_version", "safety_policy_version"],
+      "properties": {
+        "prompt_version": {"const": "1.0.0"},
+        "output_schema_version": {"const": "1.0.0"},
+        "safety_policy_version": {"const": "1.0.0"}
+      }
+    }
+  }
+}

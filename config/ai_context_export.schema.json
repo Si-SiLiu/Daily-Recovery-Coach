@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "local://daily-recovery-coach/ai-context-export/1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "export_generated_at", "date", "range_days", "display_language", "localized_summary", "data_freshness", "body_summary", "recovery_summary", "sleep_summary", "nutrition_summary", "training_summary", "local_coach_summary", "trend_summary", "data_limitations", "user_questions", "privacy_notice"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "export_generated_at": {"type": "string", "format": "date-time"},
+    "date": {"type": "string", "format": "date"},
+    "range_days": {"enum": [1, 7, 14, 30]},
+    "display_language": {"enum": ["zh-CN", "en"]},
+    "localized_summary": {"type": "string", "minLength": 1},
+    "data_freshness": {"type": "object"},
+    "body_summary": {"type": "object"},
+    "recovery_summary": {"type": "object"},
+    "sleep_summary": {"type": "object"},
+    "nutrition_summary": {"type": "object"},
+    "training_summary": {"type": "object"},
+    "local_coach_summary": {"type": "object"},
+    "kubios_summary": {"type": "object"},
+    "trend_summary": {"type": "array", "items": {"type": "object"}},
+    "data_limitations": {"type": "array", "items": {"type": "string"}},
+    "user_questions": {"type": "array", "items": {"type": "string", "maxLength": 1000}},
+    "privacy_notice": {"type": "string", "minLength": 1}
+  }
+}

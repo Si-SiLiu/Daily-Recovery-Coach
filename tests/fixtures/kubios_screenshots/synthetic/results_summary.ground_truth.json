@@ -1,0 +1,11 @@
+{
+  "template_id": "results_summary",
+  "date": "2026-03-04",
+  "measurement_time": "05:45:00",
+  "readiness": 88,
+  "rmssd": 63.2,
+  "mean_hr": 55,
+  "sdnn": 70.1,
+  "pns_index": 1.8,
+  "sns_index": -1.1
+}

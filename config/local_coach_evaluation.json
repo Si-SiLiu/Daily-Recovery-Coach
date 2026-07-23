@@ -1,0 +1,9 @@
+{
+  "evaluation_version": "1.0.0",
+  "minimum_records": 14,
+  "required_schema_pass_rate": 1.0,
+  "required_deterministic_match_rate": 1.0,
+  "required_no_cloud_marker_rate": 1.0,
+  "required_safety_notice_rate": 1.0,
+  "maximum_duplicate_keys": 0
+}

@@ -1,0 +1,69 @@
+{
+  "version": "1.1.0",
+  "sources": ["polar", "kubios", "manual", "estimated", "missing"],
+  "domains": {
+    "activity": {
+      "default": ["polar", "manual"],
+      "fields": {
+        "activity_type": ["manual_confirmed", "polar", "manual_unconfirmed"],
+        "activity_name": ["manual_confirmed", "polar", "manual_unconfirmed"],
+        "start_time": ["manual_confirmed", "polar", "manual_unconfirmed"],
+        "end_time": ["manual_confirmed", "polar", "manual_unconfirmed"],
+        "duration_minutes": ["manual_confirmed", "polar", "manual_unconfirmed"],
+        "average_hr_bpm": ["manual_confirmed", "polar", "manual_unconfirmed"],
+        "max_hr_bpm": ["manual_confirmed", "polar", "manual_unconfirmed"],
+        "calories_kcal": ["manual_confirmed", "polar", "manual_unconfirmed"],
+        "fat_burn_percentage": ["manual_confirmed", "polar", "manual_unconfirmed"],
+        "distance_m": ["manual_confirmed", "polar", "manual_unconfirmed"],
+        "session_rpe": ["manual"],
+        "notes": ["manual"]
+      }
+    },
+    "sleep": {
+      "default": ["polar", "manual"],
+      "fields": {
+        "bed_time": ["manual"],
+        "sleep_start_time": ["manual", "polar"],
+        "wake_time": ["manual", "polar"],
+        "sleep_end_time": ["manual", "polar"],
+        "get_up_time": ["manual"],
+        "sleep_duration_minutes": ["manual", "polar"],
+        "actual_sleep_duration_minutes": ["manual", "polar"],
+        "total_sleep_duration_minutes": ["manual", "polar"],
+        "nap_duration_minutes": ["manual"],
+        "subjective_sleep_quality": ["manual"],
+        "awakenings": ["manual"],
+        "notes": ["manual"],
+        "sleep_score": ["polar"],
+        "deep_sleep_duration_minutes": ["manual", "polar"],
+        "rem_sleep_duration_minutes": ["manual", "polar"],
+        "average_sleep_hr_bpm": ["manual", "polar"],
+        "minimum_sleep_hr_bpm": ["manual", "polar"],
+        "nightly_hrv_rmssd": ["manual", "polar"],
+        "nightly_resting_hr": ["polar"],
+        "respiration_rate": ["manual", "polar"],
+        "interruption_duration_minutes": ["polar"]
+      }
+    },
+    "recovery": {
+      "fields": {
+        "measurement_time": ["manual", "kubios"],
+        "morning_rmssd": ["manual", "kubios"],
+        "morning_mean_hr": ["manual", "kubios"],
+        "kubios_readiness": ["kubios"],
+        "nightly_hrv_rmssd": ["polar"],
+        "nightly_resting_hr": ["polar"],
+        "respiration_rate": ["polar"],
+        "subjective_recovery": ["manual"],
+        "fatigue": ["manual"],
+        "muscle_soreness": ["manual"],
+        "mental_energy": ["manual"],
+        "training_motivation": ["manual"],
+        "stress_level": ["manual"],
+        "pain_present": ["manual"],
+        "pain_location": ["manual"],
+        "notes": ["manual"]
+      }
+    }
+  }
+}

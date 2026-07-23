@@ -1,0 +1,16 @@
+{
+  "template_id": "measurement_details",
+  "mean_rr_ms": 970.44,
+  "sdnn": 26.1,
+  "poincare_sd1_ms": 18.47,
+  "poincare_sd2_ms": 31.98,
+  "stress_index": 14.52,
+  "respiratory_rate_bpm": 21.38,
+  "lf_power_ms2": 531.92,
+  "hf_power_ms2": 158.8,
+  "lf_power_nu": 76.85,
+  "hf_power_nu": 22.94,
+  "lf_hf_ratio": 3.35,
+  "measurement_quality": "GOOD",
+  "mood_code": "Moderate stress lowered readiness"
+}

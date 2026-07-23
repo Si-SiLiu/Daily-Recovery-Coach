@@ -1,0 +1,10 @@
+{
+  "suite_version": "1.0.0",
+  "minimum_cases_per_run": 200,
+  "required_consecutive_runs": 3,
+  "critical_pass_rate": 1.0,
+  "confidence_language_pass_rate": 0.98,
+  "grounding_pass_rate": 0.95,
+  "maximum_unsupported_numeric_claims": 0,
+  "maximum_secret_or_identifier_leaks": 0
+}

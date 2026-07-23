@@ -1,0 +1,72 @@
+{
+  "config_version": "1.2.0",
+  "detection_threshold": 0.72,
+  "templates": [
+    {
+      "template_id": "readiness_summary",
+      "display_name": "Readiness Summary",
+      "supported_app_version": "Kubios HRV readiness layout observed 2026-07-15",
+      "calibration_status": "calibrated_anonymized_real",
+      "calibration_sample_count": 1,
+      "auto_detection_enabled": true,
+      "expected_image_aspect_ratio": [0.78, 0.86],
+      "anchor_labels": ["readiness", "resting hrv", "rmssd", "heart rate"],
+      "preprocessing_profile": "light_ui",
+      "field_regions": {
+        "date": {"x": 0.39, "y": 0.12, "width": 0.22, "height": 0.07, "field_type": "date", "expected_unit": null},
+        "readiness": {"x": 0.36, "y": 0.18, "width": 0.30, "height": 0.14, "field_type": "integer", "expected_unit": null},
+        "rmssd": {"x": 0.47, "y": 0.50, "width": 0.18, "height": 0.07, "field_type": "numeric_decimal", "expected_unit": "ms"},
+        "mean_hr": {"x": 0.17, "y": 0.50, "width": 0.18, "height": 0.07, "field_type": "integer", "expected_unit": "bpm"},
+        "pns_index": {"x": 0.40, "y": 0.57, "width": 0.17, "height": 0.09, "field_type": "numeric_decimal", "expected_unit": null},
+        "sns_index": {"x": 0.46, "y": 0.70, "width": 0.18, "height": 0.09, "field_type": "numeric_decimal", "expected_unit": null},
+        "physiological_age": {"x": 0.60, "y": 0.83, "width": 0.14, "height": 0.08, "field_type": "integer", "expected_unit": "years"}
+      }
+    },
+    {
+      "template_id": "measurement_details",
+      "display_name": "Measurement Details",
+      "supported_app_version": "Kubios HRV parameters layout observed 2026-07-15",
+      "calibration_status": "calibrated_anonymized_real",
+      "calibration_sample_count": 1,
+      "auto_detection_enabled": true,
+      "expected_image_aspect_ratio": [0.78, 0.86],
+      "anchor_labels": ["hrv parameters", "sdnn", "stress index", "measurement quality"],
+      "preprocessing_profile": "table_ui",
+      "field_regions": {
+        "mean_rr_ms": {"x": 0.34, "y": 0.06, "width": 0.23, "height": 0.07, "field_type": "numeric_decimal", "expected_unit": "ms"},
+        "sdnn": {"x": 0.34, "y": 0.12, "width": 0.20, "height": 0.07, "field_type": "numeric_decimal", "expected_unit": "ms"},
+        "poincare_sd1_ms": {"x": 0.34, "y": 0.17, "width": 0.20, "height": 0.07, "field_type": "numeric_decimal", "expected_unit": "ms"},
+        "poincare_sd2_ms": {"x": 0.34, "y": 0.22, "width": 0.20, "height": 0.07, "field_type": "numeric_decimal", "expected_unit": "ms"},
+        "stress_index": {"x": 0.34, "y": 0.27, "width": 0.17, "height": 0.07, "field_type": "numeric_decimal", "expected_unit": null},
+        "respiratory_rate_bpm": {"x": 0.34, "y": 0.32, "width": 0.37, "height": 0.07, "field_type": "numeric_decimal", "expected_unit": "breaths/min"},
+        "lf_power_ms2": {"x": 0.34, "y": 0.37, "width": 0.17, "height": 0.07, "field_type": "numeric_decimal", "expected_unit": "ms²"},
+        "hf_power_ms2": {"x": 0.34, "y": 0.42, "width": 0.15, "height": 0.07, "field_type": "numeric_decimal", "expected_unit": "ms²"},
+        "lf_power_nu": {"x": 0.34, "y": 0.47, "width": 0.19, "height": 0.07, "field_type": "numeric_decimal", "expected_unit": "%"},
+        "hf_power_nu": {"x": 0.34, "y": 0.52, "width": 0.19, "height": 0.07, "field_type": "numeric_decimal", "expected_unit": "%"},
+        "lf_hf_ratio": {"x": 0.34, "y": 0.57, "width": 0.15, "height": 0.07, "field_type": "numeric_decimal", "expected_unit": null},
+        "measurement_quality": {"x": 0.51, "y": 0.65, "width": 0.18, "height": 0.08, "field_type": "status_text", "expected_unit": null},
+        "mood_code": {"x": 0.16, "y": 0.74, "width": 0.70, "height": 0.08, "field_type": "status_text", "expected_unit": null}
+      }
+    },
+    {
+      "template_id": "results_summary",
+      "display_name": "Results Summary",
+      "supported_app_version": "Real calibration pending",
+      "calibration_status": "pending_real_calibration",
+      "auto_detection_enabled": false,
+      "expected_image_aspect_ratio": [0.42, 0.55],
+      "anchor_labels": ["kubios", "results", "recovery", "readiness"],
+      "preprocessing_profile": "card_ui",
+      "field_regions": {
+        "date": {"x": 0.18, "y": 0.11, "width": 0.64, "height": 0.055, "field_type": "date", "expected_unit": null},
+        "measurement_time": {"x": 0.18, "y": 0.17, "width": 0.64, "height": 0.05, "field_type": "time", "expected_unit": null},
+        "readiness": {"x": 0.18, "y": 0.30, "width": 0.64, "height": 0.09, "field_type": "integer", "expected_unit": null},
+        "rmssd": {"x": 0.12, "y": 0.50, "width": 0.34, "height": 0.075, "field_type": "numeric_decimal", "expected_unit": "ms"},
+        "mean_hr": {"x": 0.54, "y": 0.50, "width": 0.34, "height": 0.075, "field_type": "integer", "expected_unit": "bpm"},
+        "sdnn": {"x": 0.12, "y": 0.62, "width": 0.34, "height": 0.075, "field_type": "numeric_decimal", "expected_unit": "ms"},
+        "pns_index": {"x": 0.54, "y": 0.62, "width": 0.34, "height": 0.075, "field_type": "numeric_decimal", "expected_unit": null},
+        "sns_index": {"x": 0.33, "y": 0.75, "width": 0.34, "height": 0.075, "field_type": "numeric_decimal", "expected_unit": null}
+      }
+    }
+  ]
+}

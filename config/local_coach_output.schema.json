@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "daily-recovery-coach/local-coach-output/1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["date", "morning_training", "evening_training", "sleep_advice", "hydration_advice", "nutrition_advice", "recovery_advice", "data_limitations", "safety_notices", "rationale", "engine_version", "rule_config_version", "generated_without_cloud_ai", "is_historical", "freshness_days"],
+  "properties": {
+    "date": {"type": "string", "format": "date"},
+    "morning_training": {"$ref": "#/$defs/morningTraining"},
+    "evening_training": {"$ref": "#/$defs/eveningTraining"},
+    "sleep_advice": {"$ref": "#/$defs/sleepAdvice"},
+    "hydration_advice": {"$ref": "#/$defs/hydrationAdvice"},
+    "nutrition_advice": {"$ref": "#/$defs/nutritionAdvice"},
+    "recovery_advice": {"$ref": "#/$defs/recoveryAdvice"},
+    "data_limitations": {"type": "array", "maxItems": 20, "items": {"type": "string", "minLength": 1, "maxLength": 300}},
+    "safety_notices": {"type": "array", "minItems": 1, "maxItems": 10, "items": {"type": "string", "minLength": 1, "maxLength": 300}},
+    "rationale": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["positive_factors", "negative_factors", "confidence_factors", "fallbacks"],
+      "properties": {
+        "positive_factors": {"type": "array", "maxItems": 20, "items": {"type": "string", "maxLength": 200}},
+        "negative_factors": {"type": "array", "maxItems": 20, "items": {"type": "string", "maxLength": 200}},
+        "confidence_factors": {"type": "array", "maxItems": 20, "items": {"type": "string", "maxLength": 200}},
+        "fallbacks": {"type": "array", "maxItems": 20, "items": {"type": "string", "maxLength": 200}}
+      }
+    },
+    "engine_version": {"const": "1.0.0"},
+    "rule_config_version": {"const": "1.0.0"},
+    "generated_without_cloud_ai": {"const": true},
+    "is_historical": {"type": "boolean"},
+    "freshness_days": {"type": "integer", "minimum": 0}
+  },
+  "$defs": {
+    "adjustment": {"type": ["integer", "null"], "minimum": -100, "maximum": 0},
+    "morningTraining": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "schedule", "volume_adjustment_percent", "intensity_adjustment_percent", "advice"],
+      "properties": {
+        "status": {"type": "string", "enum": ["normal", "moderate_reduction", "major_reduction", "technique_only", "rest"]},
+        "schedule": {"const": "09:00–11:00"},
+        "volume_adjustment_percent": {"$ref": "#/$defs/adjustment"},
+        "intensity_adjustment_percent": {"$ref": "#/$defs/adjustment"},
+        "advice": {"type": "string", "minLength": 1, "maxLength": 500}
+      }
+    },
+    "eveningTraining": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "schedule", "volume_adjustment_percent", "intensity_adjustment_percent", "advice"],
+      "properties": {
+        "status": {"type": "string", "enum": ["normal", "moderate_reduction", "technique_only", "mobility_only", "rest"]},
+        "schedule": {"const": "19:30–21:00"},
+        "volume_adjustment_percent": {"$ref": "#/$defs/adjustment"},
+        "intensity_adjustment_percent": {"$ref": "#/$defs/adjustment"},
+        "advice": {"type": "string", "minLength": 1, "maxLength": 500}
+      }
+    },
+    "sleepAdvice": {
+      "type": "object", "additionalProperties": false,
+      "required": ["tonight_sleep_target_direction", "bedtime_adjustment", "sleep_priority", "rationale"],
+      "properties": {
+        "tonight_sleep_target_direction": {"type": "string", "enum": ["maintain_routine", "increase_sleep_opportunity", "earlier_bedtime"]},
+        "bedtime_adjustment": {"type": "string", "maxLength": 300},
+        "sleep_priority": {"type": "string", "enum": ["normal", "elevated", "high"]},
+        "rationale": {"type": "string", "maxLength": 500}
+      }
+    },
+    "hydrationAdvice": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "direction", "rationale", "measurement_limit"],
+      "properties": {
+        "status": {"type": "string", "enum": ["normal_hydration", "increase_fluids", "consider_electrolytes", "monitor_sweat_loss"]},
+        "direction": {"type": "string", "maxLength": 400},
+        "rationale": {"type": "string", "maxLength": 400},
+        "measurement_limit": {"type": "string", "maxLength": 400}
+      }
+    },
+    "nutritionAdvice": {
+      "type": "object", "additionalProperties": false,
+      "required": ["protein_direction", "carbohydrate_direction", "post_training_meal_direction", "energy_intake_direction", "rationale"],
+      "properties": {
+        "protein_direction": {"type": "string", "maxLength": 300},
+        "carbohydrate_direction": {"type": "string", "maxLength": 300},
+        "post_training_meal_direction": {"type": "string", "maxLength": 300},
+        "energy_intake_direction": {"type": "string", "maxLength": 300},
+        "rationale": {"type": "string", "maxLength": 500}
+      }
+    },
+    "recoveryAdvice": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "advice", "monitoring"],
+      "properties": {
+        "status": {"type": "string", "enum": ["normal", "active_recovery", "reduce_load", "rest_and_monitor", "insufficient_data"]},
+        "advice": {"type": "string", "maxLength": 500},
+        "monitoring": {"type": "string", "maxLength": 500}
+      }
+    }
+  }
+}

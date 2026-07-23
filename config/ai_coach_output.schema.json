@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "daily-recovery-coach/ai-coach-output/1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["summary", "evidence", "limitations", "suggested_actions", "questions_for_user", "safety_notice", "audit"],
+  "properties": {
+    "summary": {"type": "string", "minLength": 1, "maxLength": 1000},
+    "evidence": {
+      "type": "array",
+      "maxItems": 12,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["fact_id", "statement"],
+        "properties": {
+          "fact_id": {"type": "string", "pattern": "^[a-z][a-z0-9_]{0,63}$"},
+          "statement": {"type": "string", "minLength": 1, "maxLength": 300}
+        }
+      }
+    },
+    "limitations": {"type": "array", "maxItems": 8, "items": {"type": "string", "minLength": 1, "maxLength": 300}},
+    "suggested_actions": {
+      "type": "array",
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["title", "rationale", "reversibility"],
+        "properties": {
+          "title": {"type": "string", "minLength": 1, "maxLength": 100},
+          "rationale": {"type": "string", "minLength": 1, "maxLength": 300},
+          "reversibility": {"type": "string", "enum": ["easy", "moderate"]}
+        }
+      }
+    },
+    "questions_for_user": {"type": "array", "maxItems": 3, "items": {"type": "string", "minLength": 1, "maxLength": 300}},
+    "safety_notice": {"type": "string", "maxLength": 500},
+    "audit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["model_version", "prompt_version", "output_schema_version", "safety_policy_version", "input_snapshot_digest", "generated_at", "provider_mode"],
+      "properties": {
+        "model_version": {"type": "string", "minLength": 1, "maxLength": 128},
+        "prompt_version": {"const": "1.0.0"},
+        "output_schema_version": {"const": "1.0.0"},
+        "safety_policy_version": {"const": "1.0.0"},
+        "input_snapshot_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "generated_at": {"type": "string", "format": "date-time"},
+        "provider_mode": {"const": "cloud_zdr"}
+      }
+    }
+  }
+}
