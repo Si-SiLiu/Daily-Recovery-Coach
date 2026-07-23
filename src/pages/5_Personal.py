@@ -1,6 +1,13 @@
 """Personal profile, body status, trends, and local targets."""
 
-from _bootstrap import ensure_project_root
+import sys
+from pathlib import Path
+
+project_root = Path(__file__).resolve().parents[2]
+if str(project_root) not in sys.path:
+    sys.path.insert(0, str(project_root))
+
+from src.pages._bootstrap import ensure_project_root
 
 ensure_project_root()
 
