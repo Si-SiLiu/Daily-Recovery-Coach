@@ -453,7 +453,7 @@ def main(argv=None):
     args = parse_args(argv)
     if not args.all:
         raise SystemExit("--all is required")
-    from src.db import DB_PATH, connect
+    from src.db import get_current_db_path, connect
     from src.pipeline.resolution import (
         build_resolved_daily_fields,
         rebuild_resolved_daily_fields,
@@ -462,7 +462,7 @@ def main(argv=None):
     if args.dry_run:
         import sqlite3
 
-        uri = f"file:{Path(DB_PATH).resolve()}?mode=ro"
+        uri = f"file:{get_current_db_path().resolve()}?mode=ro"
         connection = sqlite3.connect(uri, uri=True)
         connection.row_factory = sqlite3.Row
         try:

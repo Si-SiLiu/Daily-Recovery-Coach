@@ -7,10 +7,10 @@ from pathlib import Path
 
 try:
     from .dashboard_data import duration_to_seconds
-    from .db import DB_PATH, connect
+    from .db import get_current_db_path, connect
 except ImportError:
     from dashboard_data import duration_to_seconds
-    from db import DB_PATH, connect
+    from db import get_current_db_path, connect
 
 
 BASE_DIR = Path(__file__).resolve().parents[1]
@@ -375,7 +375,7 @@ def calculate_baseline_for_date(connection, target_date, config=None):
 def calculate_all_baselines(connection=None, config=None):
     owns_connection = connection is None
     if owns_connection:
-        connection = connect(DB_PATH)
+        connection = connect()
 
     try:
         config = config or load_baseline_config()
@@ -409,10 +409,10 @@ def calculate_all_baselines(connection=None, config=None):
 
 
 def main():
-    connection = connect(DB_PATH)
+    connection = connect()
     try:
         summary = calculate_all_baselines(connection)
-        print(f"Database: {DB_PATH}")
+        print(f"Database: {get_current_db_path()}")
         print(f"Baseline dates processed: {summary['dates']}")
         print(f"Baseline records upserted: {summary['records']}")
         print(f"Status counts: {summary['status_counts']}")

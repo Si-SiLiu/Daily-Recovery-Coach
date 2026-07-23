@@ -6,7 +6,7 @@ import sqlite3
 from datetime import date
 from pathlib import Path
 
-from ..db import DB_PATH
+from ..db import get_current_db_path
 from .config import LocalCoachConfigError
 from .evaluation import evaluate_longitudinal
 
@@ -77,7 +77,8 @@ def evaluate_prospective(connection=None, *, today=None, protocol=None):
     """Report genuine post-protocol progress; never creates or backfills samples."""
     owns_connection = connection is None
     if connection is None:
-        connection = sqlite3.connect(f"file:{DB_PATH}?mode=ro", uri=True)
+        db_path = get_current_db_path()
+        connection = sqlite3.connect(f"file:{db_path.resolve()}?mode=ro", uri=True)
         connection.row_factory = sqlite3.Row
     protocol = protocol or load_protocol()
     current_day = today or date.today()

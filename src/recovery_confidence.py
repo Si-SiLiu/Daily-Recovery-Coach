@@ -4,10 +4,10 @@ from pathlib import Path
 
 try:
     from .daily_metrics import duration_to_seconds
-    from .db import DB_PATH, connect
+    from .db import connect
 except ImportError:
     from daily_metrics import duration_to_seconds
-    from db import DB_PATH, connect
+    from db import connect
 
 
 BASE_DIR = Path(__file__).resolve().parents[1]
@@ -180,7 +180,7 @@ def upsert_confidence(connection, results):
 
 def rebuild_confidence(connection=None):
     owns = connection is None
-    connection = connection or connect(DB_PATH)
+    connection = connection or connect()
     try:
         metrics, baselines = load_inputs(connection)
         results = [calculate_confidence(metric, baselines.get(metric["date"], {})) for metric in metrics]

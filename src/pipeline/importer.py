@@ -27,7 +27,7 @@ def _counts(connection):
     }
 
 
-def run(context, dry_run=False, imports_dir=kubios_import.IMPORTS_DIR, db_path=DB_PATH):
+def run(context, dry_run=False, imports_dir=kubios_import.IMPORTS_DIR, db_path=None):
     imports_dir = Path(imports_dir)
     kubios_files = sorted(imports_dir.glob("*.csv")) if imports_dir.exists() else []
     if dry_run:

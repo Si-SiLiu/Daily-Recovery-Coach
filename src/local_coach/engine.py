@@ -4,7 +4,7 @@ import argparse
 import json
 import sqlite3
 
-from ..db import DB_PATH, connect
+from ..db import connect, get_current_db_path
 from .config import load_rules, validate_output
 from .explanation import build_rationale
 from .hydration import generate_hydration_advice
@@ -39,7 +39,8 @@ def run_local_coach(connection=None, coach_date=None, all_dates=False, dry_run=F
     owns_connection = connection is None
     if connection is None:
         if dry_run:
-            connection = sqlite3.connect(f"file:{DB_PATH}?mode=ro", uri=True)
+            db_path = get_current_db_path()
+            connection = sqlite3.connect(f"file:{db_path.resolve()}?mode=ro", uri=True)
             connection.row_factory = sqlite3.Row
         else:
             connection = connect()

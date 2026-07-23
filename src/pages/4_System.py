@@ -18,7 +18,8 @@ from pathlib import Path
 import streamlit as st
 
 from src.branding import load_page_icon
-from src.dashboard_data import DB_PATH, connect_readonly, get_data_freshness, get_latest_confidence
+from src.dashboard_data import connect_readonly, get_data_freshness, get_latest_confidence
+from src.demo_sandbox import configure_demo_runtime
 from src.i18n import format_date, get_translator
 from src.i18n.ui import current_language, render_sidebar
 from src.system_status import load_system_status
@@ -34,6 +35,7 @@ from src.scheduler.status import evaluate_catch_up, get_daily_scheduler_status
 from src.ui_controls import render_manual_input_styles
 
 
+configure_demo_runtime(st)
 PAGE_LANGUAGE = current_language(st.session_state)
 st.set_page_config(page_title=get_translator(PAGE_LANGUAGE)("domain.system.title"), page_icon=load_page_icon(), layout="wide")
 LANGUAGE, TR = render_sidebar(st, "system")
@@ -150,7 +152,7 @@ def main():
 
     st.subheader(TR("domain.system.quality_status"))
     confidence = get_latest_confidence()
-    connection = connect_readonly(DB_PATH)
+    connection = connect_readonly()
     try: integrity = connection.execute("PRAGMA integrity_check").fetchone()[0]
     finally: connection.close()
     test_value = TR("common.unavailable") if status.get("test_total") is None else f"{status.get('test_passed')} / {status.get('test_total')}"

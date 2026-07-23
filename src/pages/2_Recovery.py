@@ -20,7 +20,8 @@ import streamlit.components.v1 as components
 
 from src.branding import load_page_icon
 from src.dashboard_data import get_latest_local_coach
-from src.db import DB_PATH, connect
+from src.db import connect
+from src.demo_sandbox import configure_demo_runtime
 from src.domain_dashboard_data import (
     get_latest_recovery,
     get_recovery_baselines,
@@ -37,6 +38,7 @@ from src.ui_tables import centered_dataframe
 from src.ui_controls import render_manual_input_styles
 
 
+configure_demo_runtime(st)
 PAGE_LANGUAGE = current_language(st.session_state)
 st.set_page_config(page_title=get_translator(PAGE_LANGUAGE)("domain.recovery.title"), page_icon=load_page_icon(), layout="wide")
 LANGUAGE, TR = render_sidebar(st, "recovery")
@@ -302,7 +304,7 @@ def _recovery_panel(data):
         changes = {name: _clean(edited[name]) for name in edited if _clean(edited[name]) != _clean(original[name])}
         if not changes:
             st.info(TR("inline_edit.no_changes")); return
-        connection = connect(DB_PATH, migrate=False)
+        connection = connect(migrate=False)
         try:
             if data and data.get("manual_record_id"):
                 core_changes = {key: value for key, value in changes.items() if key in ("morning_rmssd_ms", "morning_resting_hr_bpm")}

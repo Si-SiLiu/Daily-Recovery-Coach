@@ -6,7 +6,7 @@ except ImportError:
     from kubios_import import rebuild_kubios_daily_metrics
 
 
-def run(context, dry_run=False, db_path=DB_PATH):
+def run(context, dry_run=False, db_path=None):
     connection = connect(db_path)
     try:
         imported = connection.execute(

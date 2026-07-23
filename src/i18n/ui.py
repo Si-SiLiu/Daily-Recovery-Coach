@@ -6,6 +6,7 @@ import os
 from .locale import SUPPORTED_LANGUAGES, normalize_language
 from .storage import load_language_preference, save_language_preference
 from .translator import get_translator
+from ..demo_sandbox import is_demo_mode, reset_demo_sandbox
 
 
 SESSION_LANGUAGE_KEY = "ui_language"
@@ -66,6 +67,22 @@ def render_sidebar(st, active_page: str) -> tuple[str, object]:
         key=LANGUAGE_SELECTOR_KEY,
         on_change=persist_language,
     )
+    if is_demo_mode():
+        sandbox_id = st.session_state.get("drc_demo_sandbox_id", "")
+        if sandbox_id:
+            st.sidebar.caption(f"Sandbox: {sandbox_id[:8]}")
+        if st.sidebar.button("重置我的沙盒", key="drc_reset_sandbox"):
+            st.session_state["drc_reset_pending"] = True
+        if st.session_state.get("drc_reset_pending"):
+            st.sidebar.warning("确定要删除当前沙盒并重新开始吗？")
+            confirm, cancel = st.sidebar.columns(2)
+            if confirm.button("确认重置", key="drc_confirm_reset"):
+                reset_demo_sandbox(st)
+                st.session_state.pop("drc_reset_pending", None)
+                st.rerun()
+            if cancel.button("取消", key="drc_cancel_reset"):
+                st.session_state.pop("drc_reset_pending", None)
+                st.rerun()
     language = current_language(st.session_state)
     translator = get_translator(language)
     main_page = os.environ.get("DRC_STREAMLIT_ENTRYPOINT", "dashboard.py")

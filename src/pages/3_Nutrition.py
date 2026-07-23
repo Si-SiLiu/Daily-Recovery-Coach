@@ -19,7 +19,8 @@ import streamlit.components.v1 as components
 
 from src.branding import load_page_icon
 from src.dashboard_data import get_day_metrics
-from src.db import DB_PATH, connect
+from src.db import connect
+from src.demo_sandbox import configure_demo_runtime
 from src.exercise_format import time_to_hms
 from src.i18n import format_date, format_number, get_translator
 from src.i18n.ui import current_language, render_sidebar
@@ -44,6 +45,7 @@ from src.ui_controls import render_manual_input_styles
 from src.ui_scroll import render_interaction_focus
 
 
+configure_demo_runtime(st)
 PAGE_LANGUAGE = current_language(st.session_state)
 st.set_page_config(
     page_title=get_translator(PAGE_LANGUAGE)("domain.nutrition.title"),
@@ -1085,7 +1087,7 @@ def main():
     st.title(TR("domain.nutrition.title")); st.caption(TR("domain.nutrition.intro"))
     # Nutrition owns the template schema extension, so apply pending migrations
     # before reading templates (existing databases receive template_type here).
-    connection = connect(DB_PATH, migrate=True)
+    connection = connect(migrate=True)
     try:
         records = list_meal_records(connection, limit=200)
         today_value = date.today().isoformat()

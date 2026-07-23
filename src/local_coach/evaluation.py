@@ -6,7 +6,7 @@ import sqlite3
 from datetime import date
 from pathlib import Path
 
-from ..db import DB_PATH
+from ..db import get_current_db_path
 from .config import LocalCoachConfigError, load_rules, validate_output
 from .engine import generate_recommendation
 from .safety import DISCLAIMER
@@ -73,7 +73,8 @@ def evaluate_longitudinal(connection=None, *, date_from=None, date_to=None,
     """Evaluate stored advice without writes or raw-health output."""
     owns_connection = connection is None
     if connection is None:
-        connection = sqlite3.connect(f"file:{DB_PATH}?mode=ro", uri=True)
+        db_path = get_current_db_path()
+        connection = sqlite3.connect(f"file:{db_path.resolve()}?mode=ro", uri=True)
         connection.row_factory = sqlite3.Row
     config = evaluation_config or load_evaluation_config()
     rules = load_rules()

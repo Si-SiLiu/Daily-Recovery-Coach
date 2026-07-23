@@ -16,7 +16,7 @@ from datetime import date, datetime, time, timedelta
 from pathlib import Path
 from typing import Iterable
 
-from .dashboard_data import DB_PATH
+from .db import get_current_db_path
 from .pipeline.history import HISTORY_PATH
 
 
@@ -398,8 +398,9 @@ def build_training_baseline_view(connection, target_date=None, *, now=None,
     }
 
 
-def get_training_baseline_view(db_path=DB_PATH, target_date=None, *, now=None,
+def get_training_baseline_view(db_path=None, target_date=None, *, now=None,
                                planned_rest_dates=(), sync_context=None):
+    db_path = get_current_db_path() if db_path is None else Path(db_path)
     connection = sqlite3.connect(db_path)
     connection.row_factory = sqlite3.Row
     try:

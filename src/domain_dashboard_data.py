@@ -179,7 +179,7 @@ def _weighted_average(items, value_key, weight_key):
     return sum(values) / len(values) if values else None
 
 
-def get_latest_training(db_path=DB_PATH, log_date=None):
+def get_latest_training(db_path=None, log_date=None):
     connection = connect_readonly(db_path)
     try:
         latest = log_date or connection.execute(
@@ -321,7 +321,7 @@ def get_latest_training(db_path=DB_PATH, log_date=None):
         connection.close()
 
 
-def get_latest_sleep(db_path=DB_PATH, log_date=None):
+def get_latest_sleep(db_path=None, log_date=None):
     connection = connect_readonly(db_path)
     try:
         latest = log_date or connection.execute(
@@ -474,7 +474,7 @@ def get_latest_sleep(db_path=DB_PATH, log_date=None):
         connection.close()
 
 
-def get_latest_recovery(db_path=DB_PATH, log_date=None):
+def get_latest_recovery(db_path=None, log_date=None):
     connection = connect_readonly(db_path)
     try:
         latest = log_date or connection.execute(
@@ -534,7 +534,7 @@ def get_latest_recovery(db_path=DB_PATH, log_date=None):
         connection.close()
 
 
-def get_recovery_history(db_path=DB_PATH, limit=60):
+def get_recovery_history(db_path=None, limit=60):
     """Return resolved core recovery fields plus reviewed Kubios morning inputs."""
     connection = connect_readonly(db_path)
     try:
@@ -572,7 +572,7 @@ def get_recovery_history(db_path=DB_PATH, limit=60):
         connection.close()
 
 
-def get_recovery_baselines(db_path=DB_PATH, target_date=None, window_days=28):
+def get_recovery_baselines(db_path=None, target_date=None, window_days=28):
     """Build morning baselines from the same resolved values shown on Recovery."""
     connection = connect_readonly(db_path)
     try:
@@ -643,7 +643,7 @@ def get_recovery_baselines(db_path=DB_PATH, target_date=None, window_days=28):
         connection.close()
 
 
-def get_latest_nutrition(db_path=DB_PATH):
+def get_latest_nutrition(db_path=None):
     connection = connect_readonly(db_path)
     try:
         row = connection.execute(
@@ -656,7 +656,7 @@ def get_latest_nutrition(db_path=DB_PATH):
         connection.close()
 
 
-def get_recent_nutrition(db_path=DB_PATH, limit=30):
+def get_recent_nutrition(db_path=None, limit=30):
     connection = connect_readonly(db_path)
     try:
         rows = connection.execute(
@@ -685,7 +685,7 @@ def _available_dates(db_path, queries, limit):
         connection.close()
 
 
-def get_training_history(db_path=DB_PATH, limit=30):
+def get_training_history(db_path=None, limit=30):
     dates = _available_dates(db_path, (
         "SELECT date AS log_date FROM polar_training_sessions_raw",
         """SELECT date AS log_date FROM manual_activity_sessions
@@ -699,7 +699,7 @@ def get_training_history(db_path=DB_PATH, limit=30):
     return [item for item in (get_latest_training(db_path, value) for value in dates) if item]
 
 
-def get_sleep_history(db_path=DB_PATH, limit=30):
+def get_sleep_history(db_path=None, limit=30):
     dates = _available_dates(db_path, (
         "SELECT date AS log_date FROM polar_sleep_raw",
         "SELECT date AS log_date FROM polar_nightly_recharge_raw",
@@ -709,7 +709,7 @@ def get_sleep_history(db_path=DB_PATH, limit=30):
     return [item for item in (get_latest_sleep(db_path, value) for value in dates) if item]
 
 
-def get_domain_baselines(metric_names, db_path=DB_PATH, window_days=28):
+def get_domain_baselines(metric_names, db_path=None, window_days=28):
     connection = connect_readonly(db_path)
     try:
         placeholders = ",".join("?" for _ in metric_names)

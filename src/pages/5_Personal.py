@@ -17,7 +17,8 @@ import pandas as pd
 import streamlit as st
 
 from src.branding import load_page_icon
-from src.db import DB_PATH, connect
+from src.db import connect
+from src.demo_sandbox import configure_demo_runtime
 from src.i18n import format_date, get_translator
 from src.i18n.ui import current_language, render_sidebar
 from src.personal_logging.body import weight_trend
@@ -34,6 +35,7 @@ from src.personal_profile import (
 from src.ui_controls import render_manual_input_styles
 
 
+configure_demo_runtime(st)
 PAGE_LANGUAGE = current_language(st.session_state)
 st.set_page_config(
     page_title=get_translator(PAGE_LANGUAGE)("personal_info.title"),
@@ -237,7 +239,7 @@ def main():
     st.title(TR("personal_info.title"))
     st.caption(TR("personal_info.intro"))
     save_notice = st.session_state.pop("personal_save_notice", None)
-    connection = connect(DB_PATH, migrate=False)
+    connection = connect(migrate=False)
     try:
         profile = get_personal_profile(connection)
         latest = latest_body_measurement(connection)

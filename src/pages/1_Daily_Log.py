@@ -20,6 +20,7 @@ import streamlit as st
 from src.ai_context.exporter import export_ai_context
 from src.branding import load_page_icon
 from src.db import connect
+from src.demo_sandbox import configure_demo_runtime
 from src.i18n import format_date, get_translator
 from src.i18n.ui import current_language, render_sidebar
 from src.personal_logging.body import calculate_bmi, weight_trend
@@ -35,6 +36,7 @@ from src.ui_tables import centered_dataframe
 from src.ui_controls import render_manual_input_styles
 
 
+configure_demo_runtime(st)
 PAGE_LANGUAGE = current_language(st.session_state)
 st.set_page_config(
     page_title=get_translator(PAGE_LANGUAGE)("personal_logging.title"),

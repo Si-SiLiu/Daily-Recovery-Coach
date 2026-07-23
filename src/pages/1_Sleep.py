@@ -23,7 +23,8 @@ import streamlit.components.v1 as components
 
 from src.branding import load_page_icon
 from src.dashboard_data import get_latest_local_coach
-from src.db import DB_PATH
+from src.db import get_current_db_path
+from src.demo_sandbox import configure_demo_runtime
 from src.domain_dashboard_data import get_domain_baselines, get_latest_sleep, get_sleep_history
 from src.exercise_format import hours_to_hms, minutes_to_hms, time_to_hms
 from src.i18n import format_date, format_number, get_translator
@@ -34,6 +35,7 @@ from src.ui_tables import centered_dataframe
 from src.ui_scroll import render_interaction_focus
 
 
+configure_demo_runtime(st)
 PAGE_LANGUAGE = current_language(st.session_state)
 st.set_page_config(
     page_title=get_translator(PAGE_LANGUAGE)("domain.sleep.title"),
@@ -45,7 +47,8 @@ LANGUAGE, TR = render_sidebar(st, "sleep")
 def _sleep_database_revision():
     """Invalidate page data only when the SQLite database (or WAL) changes."""
     revision = []
-    for path in (DB_PATH, DB_PATH.with_name(f"{DB_PATH.name}-wal")):
+    db_path = get_current_db_path()
+    for path in (db_path, db_path.with_name(f"{db_path.name}-wal")):
         try:
             stat = path.stat()
             revision.append((str(path), stat.st_mtime_ns, stat.st_size))

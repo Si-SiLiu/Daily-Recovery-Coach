@@ -67,7 +67,7 @@ def _active_p1_issues(state):
 def load_system_status(
     state_path=STATE_PATH,
     versions_path=VERSIONS_PATH,
-    db_path=DB_PATH,
+    db_path=None,
     sync_history_path=HISTORY_PATH,
     database_check=None,
     sync_reader=None,

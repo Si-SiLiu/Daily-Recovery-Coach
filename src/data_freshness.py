@@ -8,9 +8,9 @@ from datetime import date
 from pathlib import Path
 
 try:
-    from .db import BASE_DIR, DB_PATH
+    from .db import BASE_DIR, DB_PATH, get_current_db_path
 except ImportError:
-    from db import BASE_DIR, DB_PATH
+    from db import BASE_DIR, DB_PATH, get_current_db_path
 
 
 RAW_DIR = BASE_DIR / "data" / "raw"
@@ -66,14 +66,14 @@ def _max_date(connection, table):
         return None
 
 
-def collect_freshness(db_path=DB_PATH, raw_dir=RAW_DIR, today=None):
+def collect_freshness(db_path=None, raw_dir=RAW_DIR, today=None):
     current_day = today or date.today()
     raw_dir = Path(raw_dir)
     raw_dates = {
         endpoint: latest_raw_date(raw_dir / filename)
         for endpoint, filename in ENDPOINT_FILES.items()
     }
-    path = Path(db_path)
+    path = get_current_db_path() if db_path is None else Path(db_path)
     if path.exists():
         connection = sqlite3.connect(f"file:{path.resolve()}?mode=ro", uri=True)
     else:

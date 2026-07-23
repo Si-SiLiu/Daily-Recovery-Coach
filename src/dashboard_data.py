@@ -5,9 +5,9 @@ from datetime import date
 from pathlib import Path
 
 try:
-    from .db import DB_PATH
+    from .db import DB_PATH, get_current_db_path
 except ImportError:
-    from db import DB_PATH
+    from db import DB_PATH, get_current_db_path
 
 
 ISO_DURATION_RE = re.compile(
@@ -122,8 +122,8 @@ def row_to_dict(row):
     return data
 
 
-def connect_readonly(db_path=DB_PATH):
-    db_path = Path(db_path)
+def connect_readonly(db_path=None):
+    db_path = get_current_db_path() if db_path is None else Path(db_path)
     if not db_path.exists():
         connection = sqlite3.connect(":memory:")
         connection.row_factory = sqlite3.Row
@@ -134,9 +134,9 @@ def connect_readonly(db_path=DB_PATH):
     return connection
 
 
-def is_database_readable(db_path=DB_PATH):
+def is_database_readable(db_path=None):
     """Return whether the configured SQLite file can answer a read-only query."""
-    db_path = Path(db_path)
+    db_path = get_current_db_path() if db_path is None else Path(db_path)
     if not db_path.exists():
         return False
     try:
@@ -150,7 +150,7 @@ def is_database_readable(db_path=DB_PATH):
     return True
 
 
-def get_latest_day(db_path=DB_PATH):
+def get_latest_day(db_path=None):
     connection = connect_readonly(db_path)
     try:
         try:
@@ -164,7 +164,7 @@ def get_latest_day(db_path=DB_PATH):
         connection.close()
 
 
-def get_day_metrics(day, db_path=DB_PATH):
+def get_day_metrics(day, db_path=None):
     connection = connect_readonly(db_path)
     try:
         try:
@@ -178,7 +178,7 @@ def get_day_metrics(day, db_path=DB_PATH):
         connection.close()
 
 
-def get_recent_days(limit, db_path=DB_PATH):
+def get_recent_days(limit, db_path=None):
     connection = connect_readonly(db_path)
     try:
         try:
@@ -193,15 +193,15 @@ def get_recent_days(limit, db_path=DB_PATH):
         connection.close()
 
 
-def get_last_7_days(db_path=DB_PATH):
+def get_last_7_days(db_path=None):
     return get_recent_days(7, db_path=db_path)
 
 
-def get_last_30_days(db_path=DB_PATH):
+def get_last_30_days(db_path=None):
     return get_recent_days(30, db_path=db_path)
 
 
-def get_personal_logging_trends(db_path=DB_PATH, limit=90):
+def get_personal_logging_trends(db_path=None, limit=90):
     """Return local aggregate trends and degrade to empty when schema is absent."""
     connection = connect_readonly(db_path)
     try:
@@ -229,7 +229,7 @@ def get_personal_logging_trends(db_path=DB_PATH, limit=90):
         connection.close()
 
 
-def get_latest_baselines(db_path=DB_PATH, window_days=28, metric_names=None):
+def get_latest_baselines(db_path=None, window_days=28, metric_names=None):
     connection = connect_readonly(db_path)
     try:
         try:
@@ -248,7 +248,7 @@ def get_latest_baselines(db_path=DB_PATH, window_days=28, metric_names=None):
         connection.close()
 
 
-def get_latest_confidence(db_path=DB_PATH):
+def get_latest_confidence(db_path=None):
     connection = connect_readonly(db_path)
     try:
         try:
@@ -264,7 +264,7 @@ def get_latest_confidence(db_path=DB_PATH):
         connection.close()
 
 
-def get_latest_kubios_core(db_path=DB_PATH, today=None, stale_after_days=3):
+def get_latest_kubios_core(db_path=None, today=None, stale_after_days=3):
     """Return only the latest reviewed daily primary core/derived projection."""
     connection = connect_readonly(db_path)
     try:
@@ -292,7 +292,7 @@ def get_latest_kubios_core(db_path=DB_PATH, today=None, stale_after_days=3):
         connection.close()
 
 
-def get_kubios_advanced_metrics(db_path=DB_PATH, limit=28):
+def get_kubios_advanced_metrics(db_path=None, limit=28):
     """Read full selected metrics for the dedicated advanced page only."""
     connection = connect_readonly(db_path)
     try:
@@ -337,7 +337,7 @@ def get_kubios_advanced_metrics(db_path=DB_PATH, limit=28):
         connection.close()
 
 
-def get_latest_local_coach(db_path=DB_PATH, today=None, stale_after_days=3):
+def get_latest_local_coach(db_path=None, today=None, stale_after_days=3):
     """Load the latest local recommendation read-only and fail softly if absent."""
     connection = connect_readonly(db_path)
     try:
@@ -366,7 +366,7 @@ def get_latest_local_coach(db_path=DB_PATH, today=None, stale_after_days=3):
         connection.close()
 
 
-def get_prospective_progress(db_path=DB_PATH, today=None):
+def get_prospective_progress(db_path=None, today=None):
     """Return aggregate prospective progress without exposing recommendation data."""
     try:
         from .local_coach.prospective import evaluate_prospective
@@ -379,7 +379,7 @@ def get_prospective_progress(db_path=DB_PATH, today=None):
         return None
 
 
-def get_daily_collection_status(db_path=DB_PATH, today=None):
+def get_daily_collection_status(db_path=None, today=None):
     try:
         from .local_coach.collection import monitor_daily_collection
         connection = connect_readonly(db_path)
@@ -391,7 +391,7 @@ def get_daily_collection_status(db_path=DB_PATH, today=None):
         return None
 
 
-def get_data_freshness(db_path=DB_PATH, today=None):
+def get_data_freshness(db_path=None, today=None):
     try:
         from .data_freshness import collect_freshness
         return collect_freshness(db_path=db_path, today=today)

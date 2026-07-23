@@ -10,7 +10,8 @@ import streamlit.components.v1 as components
 
 from src.branding import brand_icon_path, load_page_icon
 from src.dashboard_data import get_latest_local_coach
-from src.db import DB_PATH, connect
+from src.demo_sandbox import configure_demo_runtime
+from src.db import connect
 from src.domain_dashboard_data import get_domain_baselines
 from src.exercise_format import minutes_to_hms, time_to_hms
 from src.i18n import format_date, format_number, get_translator
@@ -33,6 +34,7 @@ from src.ui_scroll import render_interaction_focus
 from src.ui_tables import centered_dataframe
 
 
+configure_demo_runtime(st)
 PAGE_LANGUAGE = current_language(st.session_state)
 st.set_page_config(
     page_title=get_translator(PAGE_LANGUAGE)("domain.exercise.title"),
@@ -752,7 +754,7 @@ def _training_metric_card(title, item, suffix=""):
 
 
 def _render_training_baseline():
-    view = get_training_baseline_view(DB_PATH)
+    view = get_training_baseline_view()
     baseline_title = TR("training_baseline.title")
     if LANGUAGE == "zh-CN":
         baseline_title = "个人训练基线"
@@ -784,7 +786,7 @@ def main():
         st.title(TR("domain.exercise.title")); st.caption(intro)
         training_notice = st.session_state.pop("training_save_notice", None)
 
-    connection = connect(DB_PATH, migrate=False)
+    connection = connect(migrate=False)
     try:
         ensure_polar_session_index(connection)
         sessions = list_training_sessions(connection, limit=100)

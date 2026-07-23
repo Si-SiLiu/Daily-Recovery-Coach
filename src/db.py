@@ -1,7 +1,7 @@
 import sqlite3
 import hashlib
-import os
 import re
+from contextvars import ContextVar
 from datetime import datetime
 from dataclasses import dataclass
 from pathlib import Path
@@ -9,7 +9,20 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = BASE_DIR / "data"
-DB_PATH = Path(os.environ.get("DRC_DB_PATH", str(DATA_DIR / "recovery.db")))
+DB_PATH = DATA_DIR / "recovery.db"
+_CURRENT_DB_PATH: ContextVar[Path | None] = ContextVar(
+    "drc_current_db_path", default=None,
+)
+
+
+def set_current_db_path(db_path: Path | str | None) -> None:
+    """Set the database path for the current Streamlit/script context."""
+    _CURRENT_DB_PATH.set(Path(db_path) if db_path is not None else None)
+
+
+def get_current_db_path() -> Path:
+    """Return the current session database or the unchanged local default."""
+    return _CURRENT_DB_PATH.get() or DB_PATH
 
 
 SCHEMA = """
@@ -1821,8 +1834,9 @@ def backup_before_migration(db_path, connection):
     return backup_path
 
 
-def connect(db_path=DB_PATH, migrate=True):
-    DATA_DIR.mkdir(parents=True, exist_ok=True)
+def connect(db_path=None, migrate=True):
+    db_path = get_current_db_path() if db_path is None else Path(db_path)
+    db_path.parent.mkdir(parents=True, exist_ok=True)
     connection = sqlite3.connect(db_path)
     connection.row_factory = sqlite3.Row
     connection.execute("PRAGMA foreign_keys = ON")
