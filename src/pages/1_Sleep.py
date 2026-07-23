@@ -895,7 +895,12 @@ def _baseline_chart(summary, key, current_date=None, current_value=None):
         legend=dict(orientation="h", yanchor="bottom", y=1.01, xanchor="left", x=0, font=dict(size=10)),
         hovermode="x unified", plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)",
     )
-    st.plotly_chart(figure, width="stretch", config={"displayModeBar": False})
+    st.plotly_chart(
+        figure,
+        width="stretch",
+        config={"displayModeBar": False},
+        key=f"sleep_baseline_chart_{key}",
+    )
 
 
 def _summary_with_current_period(summary, current_value):
