@@ -81,4 +81,6 @@ st.set_page_config(
 st.info("这是公开体验版，页面使用合成数据。请勿输入真实姓名、健康数据或 Polar 账号。")
 st.markdown("反馈入口：请在此处替换为你的问卷链接（Google Form / Tally / 飞书表单）。")
 
-import src.dashboard  # noqa: E402,F401
+from src import dashboard as training_dashboard  # noqa: E402
+
+training_dashboard.main()
