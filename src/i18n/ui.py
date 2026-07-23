@@ -1,6 +1,7 @@
 """Shared Streamlit language preference and localized navigation helpers."""
 
 from collections.abc import MutableMapping
+import os
 
 from .locale import SUPPORTED_LANGUAGES, normalize_language
 from .storage import load_language_preference, save_language_preference
@@ -67,8 +68,9 @@ def render_sidebar(st, active_page: str) -> tuple[str, object]:
     )
     language = current_language(st.session_state)
     translator = get_translator(language)
+    main_page = os.environ.get("DRC_STREAMLIT_ENTRYPOINT", "dashboard.py")
     st.sidebar.page_link(
-        "dashboard.py",
+        main_page,
         label=translator("navigation.exercise"),
         icon="🏃",
         disabled=active_page == "exercise",
