@@ -11,7 +11,11 @@ import tempfile
 import time
 from uuid import uuid4
 
-from .db import DB_PATH, connect, set_current_db_path
+# Use the same absolute package import as the Streamlit entrypoint and pages.
+# Community Cloud can execute a page with a non-package ``__package__`` value,
+# where a relative import such as ``from .db`` fails even though ``src`` is on
+# sys.path.
+from src.db import DB_PATH, connect, set_current_db_path
 
 
 DEMO_ROOT = Path(tempfile.gettempdir()) / "daily-recovery-coach-demo"
