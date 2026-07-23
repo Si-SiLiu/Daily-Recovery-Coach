@@ -2,6 +2,7 @@
 
 from datetime import date, datetime, time
 from html import escape
+import os
 from uuid import uuid4
 
 import streamlit as st
@@ -37,7 +38,10 @@ st.set_page_config(
     page_title=get_translator(PAGE_LANGUAGE)("domain.exercise.title"),
     page_icon=load_page_icon(), layout="wide",
 )
-LANGUAGE, TR = render_sidebar(st, "exercise")
+if os.environ.get("DRC_STREAMLIT_ENTRYPOINT") == "cloud_app.py":
+    LANGUAGE, TR = PAGE_LANGUAGE, get_translator(PAGE_LANGUAGE)
+else:
+    LANGUAGE, TR = render_sidebar(st, "exercise")
 render_manual_input_styles(st)
 
 TRAINING_CSS = """

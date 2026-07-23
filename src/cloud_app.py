@@ -83,4 +83,5 @@ st.markdown("反馈入口：请在此处替换为你的问卷链接（Google For
 
 from src import dashboard as training_dashboard  # noqa: E402
 
+training_dashboard.LANGUAGE, training_dashboard.TR = training_dashboard.render_sidebar(st, "exercise")
 training_dashboard.main()
