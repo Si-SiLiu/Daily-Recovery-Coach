@@ -1,5 +1,9 @@
 """Template-based, bilingual, local-only Kubios screenshot review page."""
 
+from _bootstrap import ensure_project_root
+
+ensure_project_root()
+
 import hashlib
 
 import streamlit as st

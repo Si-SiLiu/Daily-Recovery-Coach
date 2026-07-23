@@ -1,5 +1,9 @@
 """Simple food-level nutrition logging with structured local services."""
 
+from _bootstrap import ensure_project_root
+
+ensure_project_root()
+
 from datetime import date, datetime, time
 from html import escape
 

@@ -1,5 +1,9 @@
 """Top-level Recovery section with centered display and explicit editing."""
 
+from _bootstrap import ensure_project_root
+
+ensure_project_root()
+
 import math
 from datetime import date
 from html import escape

@@ -1,5 +1,9 @@
 """Personal profile, body status, trends, and local targets."""
 
+from _bootstrap import ensure_project_root
+
+ensure_project_root()
+
 from datetime import date
 
 import pandas as pd

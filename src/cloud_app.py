@@ -17,6 +17,10 @@ project_root = Path(__file__).resolve().parents[1]
 if str(project_root) not in sys.path:
     sys.path.insert(0, str(project_root))
 
+from src.pages._bootstrap import ensure_project_root
+
+ensure_project_root()
+
 
 # Never point the public demo at the developer's local data directory.
 demo_dir = Path(tempfile.gettempdir()) / "daily-recovery-coach-demo"

@@ -1,5 +1,9 @@
 """Bilingual Streamlit page for local logging and reviewed AI Context export."""
 
+from _bootstrap import ensure_project_root
+
+ensure_project_root()
+
 from datetime import date
 import json
 

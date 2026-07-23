@@ -1,5 +1,9 @@
 """System Information, scheduled-sync status, and explicit catch-up controls."""
 
+from _bootstrap import ensure_project_root
+
+ensure_project_root()
+
 from dataclasses import replace
 from datetime import datetime
 from pathlib import Path

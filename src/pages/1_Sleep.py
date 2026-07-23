@@ -1,5 +1,9 @@
 """Sleep recovery analysis page with Polar-backed local interpretation."""
 
+from _bootstrap import ensure_project_root
+
+ensure_project_root()
+
 from datetime import date, datetime, timedelta
 from html import escape
 import re

@@ -1,5 +1,9 @@
 """Read-only bilingual Kubios advanced metrics and trends."""
 
+from _bootstrap import ensure_project_root
+
+ensure_project_root()
+
 import pandas as pd
 import plotly.express as px
 import streamlit as st
