@@ -27,7 +27,7 @@ demo_dir = Path(tempfile.gettempdir()) / "daily-recovery-coach-demo"
 demo_dir.mkdir(parents=True, exist_ok=True)
 demo_db = demo_dir / "demo.db"
 os.environ["DRC_DB_PATH"] = str(demo_db)
-os.environ["DRC_STREAMLIT_ENTRYPOINT"] = "pages/0_Exercise.py"
+os.environ["DRC_STREAMLIT_ENTRYPOINT"] = "cloud_app.py"
 
 from src.db import connect  # noqa: E402
 
