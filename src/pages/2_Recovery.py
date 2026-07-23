@@ -21,7 +21,7 @@ import streamlit.components.v1 as components
 from src.branding import load_page_icon
 from src.dashboard_data import get_latest_local_coach
 from src.db import connect
-from src.demo_sandbox import configure_demo_runtime
+from src.demo_sandbox import configure_demo_runtime, is_demo_mode
 from src.domain_dashboard_data import (
     get_latest_recovery,
     get_recovery_baselines,
@@ -321,7 +321,12 @@ def _recovery_panel(data):
             })
             final_rmssd = changes.get("morning_rmssd_ms", original["morning_rmssd_ms"])
             final_hr = changes.get("morning_resting_hr_bpm", original["morning_resting_hr_bpm"])
-            if original["date"] == date.today().isoformat() and final_rmssd is not None and final_hr is not None:
+            if (
+                not is_demo_mode()
+                and original["date"] == date.today().isoformat()
+                and final_rmssd is not None
+                and final_hr is not None
+            ):
                 try:
                     start_recovery_post_save_sync()
                     st.session_state["recovery_save_notice"] = TR("inline_edit.recovery_saved_sync_started")

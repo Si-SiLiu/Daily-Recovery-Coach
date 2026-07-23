@@ -19,7 +19,7 @@ import streamlit as st
 
 from src.branding import load_page_icon
 from src.dashboard_data import connect_readonly, get_data_freshness, get_latest_confidence
-from src.demo_sandbox import configure_demo_runtime
+from src.demo_sandbox import configure_demo_runtime, is_demo_mode
 from src.i18n import format_date, get_translator
 from src.i18n.ui import current_language, render_sidebar
 from src.system_status import load_system_status
@@ -44,6 +44,14 @@ BASE_DIR = Path(__file__).resolve().parents[2]
 
 
 def _scheduler_section():
+    if is_demo_mode():
+        st.subheader(TR("scheduler_ui.title"))
+        st.info(
+            "公开体验版使用合成数据，不连接 Polar，也不执行数据同步。"
+            if LANGUAGE == "zh-CN"
+            else "The public demo uses synthetic data and does not connect to Polar or run sync."
+        )
+        return
     loaded = load_scheduler_config()
     config = loaded.config
     scheduler_history = SchedulerHistory()
